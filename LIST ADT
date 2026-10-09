@@ -1,0 +1,92 @@
+
+#include <stdio.h>
+#define MAX 100
+
+int list[MAX], n = 0;
+
+void insert(int pos, int value)
+{
+    int i;
+
+    if (n == MAX || pos < 1 || pos > n + 1)
+    {
+        printf("Invalid position or List is full\n");
+        return;
+    }
+
+    for (i = n; i >= pos; i--)
+        list[i] = list[i - 1];
+
+    list[pos - 1] = value;
+    n++;
+}
+
+void delete(int pos)
+{
+    int i;
+
+    if (pos < 1 || pos > n)
+    {
+        printf("Invalid position\n");
+        return;
+    }
+
+    for (i = pos - 1; i < n - 1; i++)
+        list[i] = list[i + 1];
+
+    n--;
+}
+
+void display()
+{
+    int i;
+
+    if (n == 0)
+    {
+        printf("List is empty\n");
+        return;
+    }
+
+    printf("List elements: ");
+    for (i = 0; i < n; i++)
+        printf("%d ", list[i]);
+
+    printf("\n");
+}
+
+int main()
+{
+    int choice, pos, value;
+
+    while (1)
+    {
+        printf("\n1.Insert\n2.Delete\n3.Display\n4.Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                printf("Enter position and value: ");
+                scanf("%d%d", &pos, &value);
+                insert(pos, value);
+                break;
+
+            case 2:
+                printf("Enter position to delete: ");
+                scanf("%d", &pos);
+                delete(pos);
+                break;
+
+            case 3:
+                display();
+                break;
+
+            case 4:
+                return 0;
+
+            default:
+                printf("Invalid choice\n");
+        }
+    }
+}
